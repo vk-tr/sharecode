@@ -20,8 +20,12 @@ const editorElement = ref(null);
 
 const host = window.location.host;
 
+var ws_prtcl = 'wss://';
+
+if (host == 'localhost') ws_prtcl = 'ws://';
+
 const signaling = [
-  'ws://' + host.split(':')[0] +':4444'
+  ws_prtcl + host.split(':')[0] +':4444'
 ];
 
 onMounted(() => {

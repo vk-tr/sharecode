@@ -30,7 +30,7 @@ onMounted(() => {
   //   signaling: signaling
   // });
 
-  const provider = new WebsocketProvider('wss://demos.yjs.dev', 'monaco', ydoc)
+  const provider = new WebsocketProvider('wss://demos.yjs.dev', props.id, ydoc)
 
   const ycontent = ydoc.getText('monaco');
 

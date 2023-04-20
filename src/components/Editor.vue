@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue';
 import * as Y from 'yjs';
 
 import { WebrtcProvider } from 'y-webrtc';
+import { WebsocketProvider } from 'y-websocket'
 
 import { MonacoBinding } from 'y-monaco';
 
@@ -18,23 +19,18 @@ const props = defineProps({
 
 const editorElement = ref(null);
 
-const host = window.location.host;
-
-var ws_prtcl = 'wss://';
-
-if (host == 'localhost') ws_prtcl = 'ws://';
-
 const signaling = [
-  ws_prtcl + host.split(':')[0] +':4444'
 ];
 
 onMounted(() => {
   const ydoc = new Y.Doc();
 
   // Users using the same ID will share the same document
-  const provider = new WebrtcProvider(props.id, ydoc, {
-    signaling: signaling
-  });
+  // const provider = new WebrtcProvider(props.id, ydoc, {
+  //   signaling: signaling
+  // });
+
+  const provider = new WebsocketProvider('wss://demos.yjs.dev', 'monaco', ydoc)
 
   const ycontent = ydoc.getText('monaco');
 
@@ -54,6 +50,18 @@ onMounted(() => {
 
   // Bind Yjs to the editor model
   new MonacoBinding(ycontent, editor.getModel(), new Set([editor]), provider.awareness);
+
+  const connectBtn = /** @type {HTMLElement} */ (document.getElementById('y-connect-btn'))
+  connectBtn.addEventListener('click', () => {
+    if (provider.shouldConnect) {
+      provider.disconnect()
+      connectBtn.textContent = 'Connect'
+    } else {
+      provider.connect()
+      connectBtn.textContent = 'Disconnect'
+    }
+  })
+
 });
 </script>
 

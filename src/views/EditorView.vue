@@ -10,8 +10,7 @@ const id = route.params.id;
   <div class="layout">
     <header>
       Editing {{ id }}
-      <button @click="share">Share</button>
-      <button @click="createSpace">Create new space</button>
+      <button id="y-connect-btn">Connect</button>
     </header>
     <Editor :id="id" />
   </div>

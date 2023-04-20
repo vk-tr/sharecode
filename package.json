@@ -5,10 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "concurrently \"npm run server\" \"vite preview\"",
-    "server": "node src/bin/server.js --ignore client",
-    "client": "vite",
-    "full": "concurrently \"npm run server\" \"npm run client\""
+    "preview": "vite preview"
   },
   "bin": {
     "y-webrtc-signaling": "./src/bin/server.js"

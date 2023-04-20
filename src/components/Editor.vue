@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue';
 
 import * as Y from 'yjs';
 
-import { WebrtcProvider } from 'y-webrtc';
 import { WebsocketProvider } from 'y-websocket'
 
 import { MonacoBinding } from 'y-monaco';
@@ -19,16 +18,8 @@ const props = defineProps({
 
 const editorElement = ref(null);
 
-const signaling = [
-];
-
 onMounted(() => {
   const ydoc = new Y.Doc();
-
-  // Users using the same ID will share the same document
-  // const provider = new WebrtcProvider(props.id, ydoc, {
-  //   signaling: signaling
-  // });
 
   const provider = new WebsocketProvider('wss://demos.yjs.dev', props.id, ydoc)
 

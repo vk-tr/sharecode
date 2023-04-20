@@ -3,9 +3,8 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-// Replace with hash
 function randomString() {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
 function createSpace() {
@@ -14,7 +13,7 @@ function createSpace() {
     params: {
       id: randomString()
     },
-  })
+  });
 }
 </script>
 

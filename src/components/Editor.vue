@@ -2,7 +2,9 @@
 import { ref, onMounted } from 'vue';
 
 import * as Y from 'yjs';
+
 import { WebrtcProvider } from 'y-webrtc';
+
 import { MonacoBinding } from 'y-monaco';
 
 import * as monaco from 'monaco-editor';
@@ -16,11 +18,20 @@ const props = defineProps({
 
 const editorElement = ref(null);
 
+const host = window.location.host;
+
+const signaling = [
+  'ws://' + host.split(':')[0] +':4444'
+];
+
 onMounted(() => {
   const ydoc = new Y.Doc();
 
   // Users using the same ID will share the same document
-  const provider = new WebrtcProvider(props.id, ydoc);
+  const provider = new WebrtcProvider(props.id, ydoc, {
+    signaling: signaling
+  });
+
   const ycontent = ydoc.getText('monaco');
 
   const editor = monaco.editor.create(editorElement.value, {

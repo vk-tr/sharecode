@@ -1,17 +1,26 @@
 {
   "name": "sharecode",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "concurrently \"npm run server\" \"vite preview\"",
+    "server": "node src/bin/server.js --ignore client",
+    "client": "vite",
+    "full": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "bin": {
+    "y-webrtc-signaling": "./src/bin/server.js"
   },
   "dependencies": {
+    "concurrently": "^8.0.1",
     "monaco-editor": "^0.37.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "y-monaco": "^0.1.4",
     "y-webrtc": "^10.2.5",
+    "y-websocket": "^1.5.0",
     "yjs": "^13.5.53"
   },
   "devDependencies": {
